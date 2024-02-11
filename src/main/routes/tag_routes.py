@@ -3,6 +3,7 @@ from src.views.http_types.http_request import HttpRequest
 from src.views.tag_creator_view import TagCreatorView
 
 from src.errors.error_handler import handler_errors
+from src.validators.tag_creator_validator import tag_creator_validator
 
 tags_routes_bp = Blueprint('tags_routes', __name__)
 
@@ -11,6 +12,7 @@ def create_tags():
     response = None
     try:
         tag_creator_view = TagCreatorView()
+        tag_creator_validator(request)
 
         http_request = HttpRequest(body=request.json)
         response = tag_creator_view.validade_and_create(http_request)
